@@ -33,7 +33,7 @@ app.use(cors({
 }));
 
 // MongoDB Connection
-databaseConnect()
+await databaseConnect()
 app.use("/api/v1", router);
 app.get("/", (req, res) => { res.send("Server Running Success!") })
 
