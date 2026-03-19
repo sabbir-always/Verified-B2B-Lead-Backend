@@ -33,7 +33,7 @@ app.use(cors({
 }));
 
 // MongoDB Connection
-await databaseConnect()
+databaseConnect()
 app.use("/api/v1", router);
 app.get("/", (req, res) => { res.send("Server Running Success!") })
 
@@ -42,7 +42,7 @@ app.use((err, req, res, next) => {
     res.status(500).json({ success: false, message: err.message || "Internal Server Error" });
 });
 
-if (process.env.NODE_ENV !== "production" && process.env.SERVER_RUN_VERCEL !== "true") {
+if (process.env.SERVER_RUN_LOCAL !== "production" && process.env.SERVER_RUN_VERCEL !== "true") {
     app.listen(PORT, () => {
         console.log(chalk.bgWhite.bold(`Local Server is running at http://localhost:${PORT}`));
     })
