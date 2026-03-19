@@ -14,15 +14,20 @@ if (!fs.existsSync(UPLOADS_DIR)) {
 }
 
 // sotre config
-const storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, UPLOADS_DIR)
-    },
-    filename: function (req, file, callback) {
-        const filename = `image-${Date.now()}.${file.originalname}`
-        callback(null, filename)
-    }
-})
+// const storage = multer.diskStorage({
+//     destination: function (req, file, callback) {
+//         callback(null, UPLOADS_DIR)
+//     },
+//     filename: function (req, file, callback) {
+//         const filename = `image-${Date.now()}.${file.originalname}`
+//         callback(null, filename)
+//     }
+// })
+
+const storage = process.env.SERVERLESS_FOR_VERCEL === "false" ? multer.diskStorage({
+    destination: (req, file, cb) => cb(null, UPLOADS_DIR),
+    filename: (req, file, cb) => cb(null, `image-${Date.now()}-${file.originalname}`)
+}) : multer.memoryStorage();
 
 // file type filter
 const fileFilter = (req, file, callback) => {
