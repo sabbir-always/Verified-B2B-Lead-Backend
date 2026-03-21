@@ -42,7 +42,7 @@ app.use((err, req, res, next) => {
     res.status(500).json({ success: false, message: err.message || "Internal Server Error" });
 });
 
-if (process.env.SERVERLESS_FOR_VERCEL !== "true") {
+if (process.env.SERVERLESS_FOR_VERCEL === "false") {
     app.listen(PORT, () => {
         console.log(chalk.bgWhite.bold(`Local Server is running at http://localhost:${PORT}`))
     })

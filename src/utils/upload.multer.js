@@ -24,10 +24,12 @@ if (!fs.existsSync(UPLOADS_DIR)) {
 //     }
 // })
 
+// --------------------- this is for vercel serverless -----------------------------
 const storage = process.env.SERVERLESS_FOR_VERCEL === "false" ? multer.diskStorage({
     destination: (req, file, cb) => cb(null, UPLOADS_DIR),
     filename: (req, file, cb) => cb(null, `image-${Date.now()}-${file.originalname}`)
 }) : multer.memoryStorage();
+// ---------------------------------------------------------------------------------
 
 // file type filter
 const fileFilter = (req, file, callback) => {
